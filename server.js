@@ -4,7 +4,7 @@ var path = require("path");
 
 var bodyParser = require("body-parser");
 
-var history = require("connect-history-api-fallback");
+// var history = require("connect-history-api-fallback");
 
 const mongoConnect = require("./server/util/database.js").mongoConnect;
 
