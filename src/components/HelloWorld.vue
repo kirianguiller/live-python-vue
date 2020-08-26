@@ -1,130 +1,102 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br />
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener"
-        >vue-cli documentation</a
-      >.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel"
-          target="_blank"
-          rel="noopener"
-          >babel</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router"
-          target="_blank"
-          rel="noopener"
-          >router</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-vuex"
-          target="_blank"
-          rel="noopener"
-          >vuex</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint"
-          target="_blank"
-          rel="noopener"
-          >eslint</a
-        >
-      </li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li>
-        <a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a>
-      </li>
-      <li>
-        <a href="https://forum.vuejs.org" target="_blank" rel="noopener"
-          >Forum</a
-        >
-      </li>
-      <li>
-        <a href="https://chat.vuejs.org" target="_blank" rel="noopener"
-          >Community Chat</a
-        >
-      </li>
-      <li>
-        <a href="https://twitter.com/vuejs" target="_blank" rel="noopener"
-          >Twitter</a
-        >
-      </li>
-      <li>
-        <a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a>
-      </li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li>
-        <a href="https://router.vuejs.org" target="_blank" rel="noopener"
-          >vue-router</a
-        >
-      </li>
-      <li>
-        <a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-devtools#vue-devtools"
-          target="_blank"
-          rel="noopener"
-          >vue-devtools</a
-        >
-      </li>
-      <li>
-        <a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener"
-          >vue-loader</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-          rel="noopener"
-          >awesome-vue</a
-        >
-      </li>
-    </ul>
+    <codemirror v-model="code" :options="cmOptions" ref="cmEditor" />
+    <button @click="changeTheme()">change theme</button>
+    <p>{{code}}</p>
+    <!-- <textarea name="cm" id="cm" ref="cm" cols="30" rows="10"></textarea> -->
   </div>
 </template>
 
 <script>
+import { codemirror } from "vue-codemirror";
+
+// import base style
+
+// import more codemirror resource...
+// import CodeMirror from "codemirror";
+import "codemirror/mode/python/python.js";
+import "codemirror/theme/monokai.css";
+import "codemirror/theme/base16-dark.css";
+
+import "codemirror/lib/codemirror.css";
+import "codemirror/mode/javascript/javascript.js";
+
+import "codemirror/addon/selection/active-line.js";
+import "codemirror/addon/selection/selection-pointer.js";
+import "codemirror/addon/selection/mark-selection.js";
 export default {
   name: "HelloWorld",
-  props: {
-    msg: String
-  }
+  components: {
+    codemirror,
+  },
+  data() {
+    return {
+      code: "def f(x):",
+      cmOptions: {
+        tabSize: 4,
+        styleActiveLine: true,
+        selectionPointer: true,
+        styleSelectedText: true,
+        lineNumbers: true,
+        line: true,
+        theme: "monokai",
+        // mode: 'text/python',
+        mode: {
+          name: "python",
+          // version: 3,
+          singleLineStringErrors: true,
+          // theme: "monokai",
+        },
+        // theme: "monokai",
+      },
+      // cmOptions: {
+      //   tabSize: 4,
+      //   // mode: 'text/python',
+      //   mode: {
+      //     name: "python",
+      //     version: 3,
+      //     singleLineStringErrors: true,
+      //     theme: "monokai",
+      //   },
+      //   theme: "base16-dark",
+      //   lineNumbers: true,
+      //   line: true,
+      //   // more CodeMirror options...
+      // },
+      inputCm: null,
+    };
+  },
+  // computed: {
+  //   codemirror() {
+  //     return this.$refs.cmEditor.codemirror;
+  //   },
+  // },
+  // mounted() {
+  //   console.log("the current CodeMirror instance object:", this.codemirror);
+  //   // const inputTextarea = document.getElementById("input-textarea");
+  //   // const outputTextarea = document.getElementById("output-textarea");
+
+  //   // this.inputCm = CodeMirror.fromTextArea(inputTextarea, {
+  //   this.inputCm = CodeMirror.fromTextArea(this.$refs.cm, {
+  //     lineNumbers: true,
+  //     tabSize: 4,
+  //     styleActiveLine: true,
+  //     mode: {
+  //       name: "python",
+  //       version: 3,
+  //       singleLineStringErrors: true,
+  //       theme: "monokai",
+  //     },
+  //   });
+  // },
+  // methods: {
+  //   changeTheme() {
+  //     this.cmOptions.theme = "base16-dark";
+  //   },
+  // },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+<style scoped>
 </style>

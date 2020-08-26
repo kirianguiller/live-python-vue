@@ -1,32 +1,53 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <NavBar v-if="$route.name !== 'Room'" />
+    <router-view class="content" />
   </div>
 </template>
 
+<script>
+import NavBar from "@/components/NavBar.vue";
+// import io from "socket.io"
+
+export default {
+  components: {
+    NavBar
+  }
+  // sockets: {
+  //   // connect: function () {
+  //   //   console.log("socket connected app <-> server");
+  //   // },
+  // },
+};
+</script>
+
+
 <style lang="scss">
-#app {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  /* text-align: center; */
+  // color: #2c3e50;
+  // background-color: $primary-color;
+  // background-color: red;
+
+  width: 100%;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.content {
+  position: relative;
+  /* top: 60px; */
+  /* padding: 0 5%; */
+  /* text-align: left; */
 }
 </style>
