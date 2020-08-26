@@ -2,6 +2,7 @@
   "name": "live-python-vue",
   "version": "0.1.0",
   "private": true,
+  "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
     "serve": "vue-cli-service serve",
